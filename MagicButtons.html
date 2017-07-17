@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>magicButtons</title>
+    <!-- <script src="jquery-3.2.1.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="magicButtons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <form>
+        <button type="button" name="button" class="create">Create</button>
+        <button type="button" name="button" class="alert">Alert</button>
+        <button type="button" name="button" class="remove">Remove</button>
+
+        <table id="listOfObj">
+        </table>
+      </form>
+    </div>
+
+    <script type="text/javascript">
+      var dateNum = [];
+      var index = 0;
+
+      //-----------------Create button function
+      var createbutton = document.querySelector('.create');
+      createbutton.addEventListener('click',function() {
+        var newObj = new RandNum();
+        dateNum.push(newObj);
+        var table = document.getElementById("listOfObj");
+        var row = table.insertRow(index);
+        row.insertCell(0).innerHTML = dateNum[index].num;
+        row.insertCell(1).innerHTML = dateNum[index].date;
+        index++;
+      });
+
+      //-----------------Alert Button function
+      var alertbutton = document.querySelector('.alert');
+      alertbutton.addEventListener('click',function() {
+        if(typeof dateNum[0] !== 'undefined' && dateNum[0] !== null ){
+              alert("last item is: "+dateNum[dateNum.length-1].date+" "+dateNum[dateNum.length-1].num);
+        }
+      });
+
+      //-----------------Remove button function
+      var removebutton = document.querySelector('.remove');
+      removebutton.addEventListener('click',function() {
+        if(typeof dateNum[0] !== 'undefined' && dateNum[0] !== null ){
+          dateNum.pop();
+          document.getElementById("listOfObj").deleteRow(index-1);
+          index--;
+        }
+
+      });
+
+      class RandNum {
+          constructor(){
+            this.num = Math.random()*100;
+            this.date = Date.now();
+          }
+      }
+
+    </script>
+
+  </body>
+</html>
